@@ -42,7 +42,8 @@ public class PCR {
 	private Date fechaExamen;
 	private String hora;
 	private Integer edad;
-	private String locacion;
+	@Column(name = "lugar_toma_examen")
+	private String lugarTomaExamen;
 	private String resultado;
 	@Column(name = "comuna_de_residencia")
 	private String comunaDeResidencia;

@@ -346,7 +346,7 @@ public class ServicioPCR implements IServicioPCR {
 		this.validarDatosString(pcr.getDireccion());
 		this.validarDatosString(pcr.getComunaDeResidencia());
 		this.validarDatosString(pcr.getVillaPoblacion());
-		this.validarDatosString(pcr.getLocacion());
+		this.validarDatosString(pcr.getLugarTomaExamen());
 		this.validarResultadoExamen(pcr.getResultado());		
 		this.validarCorreo(pcr.getCorreo(), pcr.getConfirmacionCorreo());
 		this.validarHora(pcr.getHora());
