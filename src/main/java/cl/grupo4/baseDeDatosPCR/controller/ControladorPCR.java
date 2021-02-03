@@ -43,19 +43,19 @@ public class ControladorPCR {
 	@PostMapping(value = "/crearPCR", produces ="application/json")
 	 public ResponseEntity<PCR> crearPCR(@RequestBody PCR nuevoPCR){
 		
-		PCR resultado = null;
+		
 		//TODO validar parametros de entrada, a nivel de negocio y nulos
 		//Validacion de errores de servicio
 		
-		try {
-			resultado = servicioPCR.crearPCR(nuevoPCR);
-		} catch(AccessControlException e) {
-			throw new RuntimeException();
-		} catch(Exception e) {
-			throw new RuntimeException();
-		}
+	//	try {
+		//	
+	//	} catch(AccessControlException e) {
+		//	throw new RuntimeException();
+	//	} catch(Exception e) {
+		//	throw new RuntimeException();
+	//	}
 		
-		 return new ResponseEntity<PCR>(resultado, HttpStatus.OK);
+		 return new ResponseEntity<PCR>(servicioPCR.crearPCR(nuevoPCR), HttpStatus.OK);
 	 }
 	
 	 

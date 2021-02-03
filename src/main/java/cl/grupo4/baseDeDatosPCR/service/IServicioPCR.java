@@ -3,11 +3,13 @@ package cl.grupo4.baseDeDatosPCR.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import cl.grupo4.baseDeDatosPCR.entity.PCR;
 
 public interface IServicioPCR {
 
-	/**Metodo para crear pcr que recibe entidad de tipo PCR y retorna nuevo PCR.
+	/** Metodo para crear pcr que recibe entidad de tipo PCR y retorna nuevo PCR.
 	 * @param nuevoPCR
 	 * @return nuevoPCR
 	 */
@@ -75,6 +77,57 @@ public interface IServicioPCR {
 	 * @param rut
 	 */
 	void validarRutParaModificar(String rut);
+
+	/**
+	 * Metodo que recibe un objeto String para verificar si sus valores son válidos. 
+	 * @param valorInput
+	 */
+	void validarDatosString(String valorInput);
+
+	/**
+	 * Metodo que recibe un objeto Integer para verificar si sus valores son válidos. 
+	 * @param valorInput
+	 */
+	void validarDatosInteger(Integer valorInput);
+
+	/**
+	 * Metodo que recibe un objeto Integer para verificar si sus valores son válidos en referencia a las restricciones de valor de edad. 
+	 * @param edad
+	 */
+	void validarEdad(Integer edad);
+
+	/**
+	 *  Metodo que recibe un objeto Integer para verificar si sus valores son válidos en referencia a las restricciones de valor telefono.
+	 * @param telefono
+	 */
+	void validarTelefono(Integer telefono);
+
+	/**
+	 *  Metodo que recibe un objetos String para verificar si sus valores son válidos e iguales entre si.
+	 * @param correo
+	 * @param confirmacionCorreo
+	 */
+	void validarCorreo(String correo, String confirmacionCorreo);
+
+	/**
+	 *  Metodo que recibe un objeto String para verificar si sus valores son válidos en referencia a las 
+	 *  restricciones del formato del valor hora.
+	 * @param hora
+	 */
+	void validarHora(String hora);
+
+	/**
+	 *  Metodo que recibe un objeto String para verificar si el valor resultado corresponde a alguno de los valores constantes.
+	 * @param resultado
+	 * @return
+	 */
+	Boolean validarResultadoExamen(String resultado);
+
+	/**
+	 *  Metodo que recibe un objeto Boolean para verificar si su valor es válido.
+	 * @param valorInput
+	 */
+	void validarDatosBooleanos(Boolean valorInput);
 
 	/**Metodo que valida los parametros de entrada al agregar un nuevo PCR o actualizar un PCR existente.
 	 * @param pcr
