@@ -120,8 +120,8 @@ public class ControladorPCR {
 	 * @param comuna
 	 * @return ResponseEntity (http response)
 	 */
-	@PostMapping(value ="/buscarPorComuna", produces = "application/json")
-	 public ResponseEntity<List<PCR>> buscarPorComuna(@RequestBody String comuna){
+	@GetMapping(value ="/buscarPorComuna", produces = "application/json")
+	 public ResponseEntity<List<PCR>> buscarPorComuna(@RequestParam String comuna){
 		 
 		 return new ResponseEntity<List<PCR>>(servicioPCR.buscarPorComuna(comuna), HttpStatus.OK);
 	 }
