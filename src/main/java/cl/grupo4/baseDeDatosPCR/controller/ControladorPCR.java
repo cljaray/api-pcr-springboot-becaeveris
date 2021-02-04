@@ -71,8 +71,8 @@ public class ControladorPCR {
 	 * @param rut
 	 * @return ResponseEntity (http response)
 	 */
-	@GetMapping(value = "/buscarPorRut", produces ="application/json")
-	 public ResponseEntity<PCR> buscarPorRut(@RequestParam String rut){
+	@GetMapping(value = "/buscarPorRut/{rut}", produces ="application/json")
+	 public ResponseEntity<PCR> buscarPorRut(@PathVariable String rut){
 		 return new ResponseEntity<PCR>(servicioPCR.buscarPorRut(rut), HttpStatus.OK);
 	 }
 	 	
@@ -110,8 +110,8 @@ public class ControladorPCR {
 	 * @param rut
 	 * @return ResponseEntity (http response)
 	 */
-	@DeleteMapping(value = "/eliminarPCR", produces = "application/json")
-	 public ResponseEntity<Map<String,String>> eliminarPCR(@RequestBody String rut){
+	@DeleteMapping(value = "/eliminarPCR/{rut}", produces = "application/json")
+	 public ResponseEntity<Map<String,String>> eliminarPCR(@PathVariable String rut){
 		 
 		 return new ResponseEntity<Map<String,String>>(servicioPCR.eliminarPCR(rut), HttpStatus.OK);
 	 }
