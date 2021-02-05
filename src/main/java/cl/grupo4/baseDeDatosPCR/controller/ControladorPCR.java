@@ -22,18 +22,20 @@ import java.util.List;
 import java.util.Map;
 
 import cl.grupo4.baseDeDatosPCR.entity.PCR;
-import cl.grupo4.baseDeDatosPCR.service.IServicioPCR;
+import cl.grupo4.baseDeDatosPCR.service.IServicePCR;
+
 
 /**Clase que expone las rutas de acceso a la aplicacion.
- * @author Claudio
+ * @author Grupo 4
  *
  */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/pcr")
 public class ControladorPCR {
+	
 	@Autowired
-	private IServicioPCR servicioPCR;
+	private IServicePCR servicioPCR;
 	
 	
 	 /**Metodo que expone ruta /crearPCR y que permite la creacion de un nuevo pcr.
@@ -42,20 +44,16 @@ public class ControladorPCR {
 	 */
 	@PostMapping(value = "/crearPCR", produces ="application/json")
 	 public ResponseEntity<PCR> crearPCR(@RequestBody PCR nuevoPCR){
-		
-		
-		//TODO validar parametros de entrada, a nivel de negocio y nulos
-		//Validacion de errores de servicio
-		
-	//	try {
-		//	
-	//	} catch(AccessControlException e) {
-		//	throw new RuntimeException();
-	//	} catch(Exception e) {
-		//	throw new RuntimeException();
-	//	}
-		
-		 return new ResponseEntity<PCR>(servicioPCR.crearPCR(nuevoPCR), HttpStatus.OK);
+		PCR resultado = null;
+		try {
+			resultado = servicioPCR.crearPCR(nuevoPCR);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+
+		return new ResponseEntity<PCR>(resultado, HttpStatus.OK);
 	 }
 	
 	 
@@ -64,7 +62,15 @@ public class ControladorPCR {
 	 */
 	@GetMapping(value = "/buscarTodosPCR", produces ="application/json")
 	 public ResponseEntity<List<PCR>> buscarTodosPCR(){
-		 return new ResponseEntity<List<PCR>>(servicioPCR.buscarTodosPCR(), HttpStatus.OK);
+		List<PCR> resultado = null;
+		try {
+			resultado = servicioPCR.buscarTodosPCR();
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+		return new ResponseEntity<List<PCR>>(resultado, HttpStatus.OK);
 	 }
 	 
 	 /**Metodo que expone ruta /buscarPorRut y que permite la entrega de datos PCR por rut.
@@ -73,8 +79,16 @@ public class ControladorPCR {
 	 */
 	@GetMapping(value = "/buscarPorRut/{rut}", produces ="application/json")
 	 public ResponseEntity<PCR> buscarPorRut(@PathVariable String rut){
-		 return new ResponseEntity<PCR>(servicioPCR.buscarPorRut(rut), HttpStatus.OK);
-	 }
+		PCR resultado = null;
+		try {
+			resultado = servicioPCR.buscarPorRut(rut);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+		return new ResponseEntity<PCR>(resultado, HttpStatus.OK);	 
+		}
 	 	
 	 /**Metodo que expone ruta /buscarNombreApellido y que permite la entrega de PCR con nombres y apellido que incluyan los parametros consultados.
 	 * @param nombre
@@ -83,8 +97,16 @@ public class ControladorPCR {
 	 */
 	@GetMapping(value = "/buscarNombreApellido", produces ="application/json")
 	 public ResponseEntity<List<PCR>> buscarNombreApellido(@RequestParam String nombre, @RequestParam String apellido){
-		 return new ResponseEntity<List<PCR>>(servicioPCR.buscarNombreApellido(nombre, apellido), HttpStatus.OK);
-	 }
+		List<PCR> resultado = null;
+		try {
+			resultado = servicioPCR.buscarNombreApellido(nombre, apellido);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+		return new ResponseEntity<List<PCR>>(resultado, HttpStatus.OK);	 
+		}
 	 
 	 /**Metodo que expone ruta /actualizarPCR/{rut} y que permite la actualizar los datos PCR existente consultando por Rut.
 	 * @param pcrActualizado
@@ -93,17 +115,33 @@ public class ControladorPCR {
 	 */
 	@PutMapping(value = "/actualizarPCR/{rut}", produces ="application/json")
 	 public ResponseEntity<PCR> actualizarPCR(@RequestBody PCR pcrActualizado, @PathVariable String rut){
-		 return new ResponseEntity<PCR>(servicioPCR.actualizarPCR(pcrActualizado, rut), HttpStatus.OK);
-	 } 
+		PCR resultado = null;
+		try {
+			resultado = servicioPCR.actualizarPCR(pcrActualizado, rut);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+		return new ResponseEntity<PCR>(resultado, HttpStatus.OK);
+		} 
 	 
 	 /**Metodo que expone ruta /checkearResultado y que permite la entrega de PCR mediante la busqueda de palabras clave (positivo, negativo o pendiente).
 	 * @param resultado
 	 * @return ResponseEntity (http response)
 	 */
 	@GetMapping(value = "/checkearResultado", produces = "application/json")
-	 public ResponseEntity<List<PCR>> checkearResultado(@RequestParam String resultado){
-		 return new ResponseEntity<List<PCR>>(servicioPCR.checkearResultados(resultado), HttpStatus.OK);
-	 }
+	 public ResponseEntity<List<PCR>> checkearResultado(@RequestParam String resultadoExamen){
+		List<PCR> resultado = null;
+		try {
+			resultado = servicioPCR.checkearResultados(resultadoExamen);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+		return new ResponseEntity<List<PCR>>(resultado, HttpStatus.OK);
+		}
 	 
 	 
 	 /**Metodo que expone ruta /eliminarPCR y que permite la eliminacion de PCR mediante la entrega de Rut.
@@ -112,9 +150,17 @@ public class ControladorPCR {
 	 */
 	@DeleteMapping(value = "/eliminarPCR/{rut}", produces = "application/json")
 	 public ResponseEntity<Map<String,String>> eliminarPCR(@PathVariable String rut){
+		Map<String, String> resultado = null;
+		try {
+			resultado = servicioPCR.eliminarPCR(rut);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
 		 
-		 return new ResponseEntity<Map<String,String>>(servicioPCR.eliminarPCR(rut), HttpStatus.OK);
-	 }
+		return new ResponseEntity<Map<String,String>>(resultado, HttpStatus.OK);
+		}
 	 
 	 /**Metodo que expone ruta /buscarPorComuna y que permite la entrega de datos PCR mediante la busqueda por comuna.
 	 * @param comuna
@@ -122,18 +168,49 @@ public class ControladorPCR {
 	 */
 	@GetMapping(value ="/buscarPorComuna", produces = "application/json")
 	 public ResponseEntity<List<PCR>> buscarPorComuna(@RequestParam String comuna){
+		List<PCR> resultado = null;
+		try {
+			resultado = servicioPCR.buscarPorComuna(comuna);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
 		 
-		 return new ResponseEntity<List<PCR>>(servicioPCR.buscarPorComuna(comuna), HttpStatus.OK);
-	 }
+		return new ResponseEntity<List<PCR>>(resultado, HttpStatus.OK);
+		}
 	 
 	 /**Metodo que expone ruta /pacientesAltoRiesgo y que permite la entrega de datos PCR con paciente de alto riesgo.
 	 * @return ResponseEntity (http response)
 	 */
 	@GetMapping(value = "/pacientesAltoRiesgo", produces = "application/json")
 	 public ResponseEntity<List<PCR>> pacientesAltoRiesgo(){
-		 return new ResponseEntity<List<PCR>>(servicioPCR.pacientesAltoRiesgo(), HttpStatus.OK);
-	 }
-	 
-	 
-	 
+		List<PCR> resultado = null;
+		try {
+			resultado = servicioPCR.pacientesAltoRiesgo();
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+		return new ResponseEntity<List<PCR>>(resultado, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/comprobarRutExistente", produces = "application/json")
+	 public ResponseEntity<Boolean> verificarRutExistente(@RequestParam String rut){
+		Boolean resultado = null;
+		try {
+			resultado = servicioPCR.validarRutExistenteDirectoFrontEnd(rut);
+		}catch(AccessControlException e){
+			throw new RuntimeException("Hubo un fallo en el servidor.");
+		}catch(Error e){
+			throw new RuntimeException("Hubo un fallo al ingresar su peticion.");
+		}
+		return new ResponseEntity<Boolean>(resultado, HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
 }

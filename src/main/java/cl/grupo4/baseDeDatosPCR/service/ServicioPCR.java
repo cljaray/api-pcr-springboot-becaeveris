@@ -16,11 +16,11 @@ import lombok.extern.log4j.Log4j2;
 
 /**
  * Clase que expone servicios para ser usados por el controlador y acceder a la base de datos.
- * @author wladi
+ * @author Grupo 4
  *
  */
 @Service
-public class ServicioPCR implements IServicioPCR {
+public class ServicioPCR implements IServicePCR  {
 	@Autowired
 	private RepositorioPCR repositorioPCR;
 	
@@ -184,7 +184,7 @@ public class ServicioPCR implements IServicioPCR {
 		this.validarDatosString(rut);
 		
 		//Se valida rut mediante expresion regular, si no coincide, envia error
-		if(!Pattern.matches("^(\\d{2}\\.\\d{3}\\.\\d{3}-)([a-zA-Z]{1}$|\\d{1}$)",rut)) {
+		if(!Pattern.matches("^(\\d{1}|\\d{2})\\.(\\d{3}\\.\\d{3}-)([kK]{1}$|\\d{1}$)",rut)) {
 			throw new RuntimeException("Rut no válido");
 		} 
 	}
@@ -214,6 +214,23 @@ public class ServicioPCR implements IServicioPCR {
 		if (!repositorioPCR.existsByRut(rut)) {
 			throw new RuntimeException("Este rut no existe");		
 		}
+	}
+	
+	/**
+	 * Metodo que retorna valor booleano para verificar la existencia de un rut en la base de datos.
+	 * @param rut
+	 * @return Boolean
+	 */
+	@Override
+	public Boolean validarRutExistenteDirectoFrontEnd(String rut) {
+		//Se verifica que valor de rut sea valido
+		this.validarRut(rut);
+		//se valida la existencia de rut, y manda error si existe
+		if (repositorioPCR.existsByRut(rut)) {
+			return true;		
+		} 
+		
+		return false;		
 	}
 	
 	/**

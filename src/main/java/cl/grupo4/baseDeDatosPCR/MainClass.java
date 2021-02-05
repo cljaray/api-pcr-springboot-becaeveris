@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 
 /**Clase principal que inicializa la aplicacion.
- * @author Claudio
+ * @author Grupo 4
  *
  */
 @SpringBootApplication

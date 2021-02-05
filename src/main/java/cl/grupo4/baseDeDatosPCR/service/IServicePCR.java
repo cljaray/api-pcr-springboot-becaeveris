@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cl.grupo4.baseDeDatosPCR.entity.PCR;
 
-public interface IServicioPCR {
+public interface IServicePCR {
 
 	/** Metodo para crear pcr que recibe entidad de tipo PCR y retorna nuevo PCR.
 	 * @param nuevoPCR
@@ -77,6 +77,13 @@ public interface IServicioPCR {
 	 * @param rut
 	 */
 	void validarRutParaModificar(String rut);
+
+	/**
+	 * Metodo que retorna valor booleano para verificar la existencia de un rut en la base de datos.
+	 * @param rut
+	 * @return Boolean
+	 */
+	Boolean validarRutExistenteDirectoFrontEnd(String rut);
 
 	/**
 	 * Metodo que recibe un objeto String para verificar si sus valores son válidos. 
