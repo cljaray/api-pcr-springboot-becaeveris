@@ -13,10 +13,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Data
 @Entity
 @Table(name="pcr")
+@Getter @Setter
 public class PCR {
 
 	protected static final String ALUMNOS_SEQ = "alumnos_seq";

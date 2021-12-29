@@ -3,7 +3,7 @@ package cl.grupo4.baseDeDatosPCR.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +21,8 @@ import java.security.AccessControlException;
 import java.util.List;
 import java.util.Map;
 
+import cl.grupo4.baseDeDatosCliente.service.IServicioCliente;
+import cl.grupo4.baseDeDatosPCR.entity.Cliente;
 import cl.grupo4.baseDeDatosPCR.entity.PCR;
 import cl.grupo4.baseDeDatosPCR.service.IServicePCR;
 
@@ -36,7 +38,7 @@ public class ControladorPCR {
 	
 	@Autowired
 	private IServicePCR servicioPCR;
-	
+
 	
 	 /**Metodo que expone ruta /crearPCR y que permite la creacion de un nuevo pcr.
 	 * @param nuevoPCR
@@ -208,6 +210,8 @@ public class ControladorPCR {
 		}
 		return new ResponseEntity<Boolean>(resultado, HttpStatus.OK);
 	}
+	
+	
 	
 	
 	

@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 
 
@@ -12,6 +13,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  *
  */
 @SpringBootApplication
+@ComponentScan({"cl.grupo4.baseDeDatosPCR","cl.grupo4.baseDeDatosCliente"})
 public class MainClass extends SpringBootServletInitializer {	
 
     public static void main(String[] args) {

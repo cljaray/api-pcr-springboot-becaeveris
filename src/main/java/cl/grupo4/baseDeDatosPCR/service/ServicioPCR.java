@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j2;
  * @author Grupo 4
  *
  */
-@Service
+@Service("ServicioPCR")
 public class ServicioPCR implements IServicePCR  {
 	@Autowired
 	private RepositorioPCR repositorioPCR;
@@ -239,7 +239,7 @@ public class ServicioPCR implements IServicePCR  {
 	 */
 	public void validarDatosString(String valorInput) {
 		//Se verifica que valorinput no sea null o este vacio
-		if(valorInput == null || valorInput.trim() == null || valorInput.trim().isBlank()) {
+		if(valorInput == null || valorInput.trim() == null || valorInput.trim() == null) {
 			throw new RuntimeException("No se pueden ingresar campos vacios, por favor ingrese la informacion requerida.");
 		}		
 	}
